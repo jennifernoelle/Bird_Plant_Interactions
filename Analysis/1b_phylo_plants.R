@@ -3,7 +3,7 @@
 # Set the directories below to correspond to paths on your machine:
 
 # The directory where the analysis is performed:
-wd_path <- 'Bird_Plant_Interactions/'
+wd_path <- '/home/jennifer/Bird_Plant_Interactions/'
 # The directory where the original data are:
 data_path <- 'Data/'
 # The directory where the processed data should be saved:
@@ -47,7 +47,7 @@ uni_plants <- cbind(species = dta_subset$Plant_Species,
 uni_plants <- as.data.frame(unique(uni_plants))
 
 
-y <- phylo.maker(uni_plants, scenarios = "S3")
+y <- phylo.maker(uni_plants, scenarios = "S3") # default scenario
 
 # Using the phylogenetic tree in the ape R package to get a phylogenetic
 # correlation matrix.

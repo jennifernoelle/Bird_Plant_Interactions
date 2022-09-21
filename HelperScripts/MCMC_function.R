@@ -401,7 +401,7 @@ MCMC <- function(obs_A, focus, occur_B, occur_P, obs_X, obs_W, Cu, Cv,
     if (sampling$tau) {
       
       this_tau_beta <- UpdExtraVar(mod_coef = this_beta[, - 1],
-                                   shr_var = this_theta, prior_spec = prior_tau)
+                                   shr_var = this_theta, prior_spec = prior_tau) # Note this throws error b/c this_beta can have class "matrix" "array", still probably does correct thing
       
       this_tau_gamma <- UpdExtraVar(mod_coef = this_gamma[, - 1],
                                     shr_var = this_theta, prior_spec = prior_tau)

@@ -1,5 +1,5 @@
 # The directory where the analysis is performed:
-wd_path <- 'Bird_Plant_Interactions/'
+wd_path <- '/home/jennifer/Bird_Plant_Interactions/'
 # Where the processed data are saved:
 data_path <- 'Data/'
 # Where the results are saved:
@@ -39,7 +39,7 @@ nB <- nrow(obs_A)
 nP <- ncol(obs_A)
 
 # Number of MCMC chains for our method and for the alternative method:
-nchains <- 4
+nchains <- 2
 nchains_alt <- 3
 # Number of cross validation repetitions:
 repetitions <- 30
@@ -55,7 +55,7 @@ good_namesW <- c('Fruit\nDiameter', 'Fruit\nLength', 'Seed\nDiameter', 'Seed\nLe
 
 all_res <- NULL
 for (ii in 1 : nchains) {
-  load(paste0(result_path, 'res_', ii, '.dat'))
+  load(paste0(result_path, 'res_2_', ii, '.dat'))
   all_res[[ii]] <- res
 }
 
@@ -64,6 +64,7 @@ for (ii in 1 : nchains_alt) {
   load(paste0(result_path, 'alt_res_', ii, '.dat'))
   alt_res[[ii]] <- res
 }
+
 
 
 
@@ -88,6 +89,7 @@ dimnames(pred_ours)[2 : 3] <- list(bird = rownames(obs_A), plant = colnames(obs_
 # Calculating the posterior probability of interaction by averaging across
 # posterior samples:
 pred_ours <- apply(pred_ours, c(2, 3), mean)
+save(pred_ours, file = paste0(result_path, 'mean_post_probs.dat'))
 
 
 
@@ -149,7 +151,7 @@ keep_plant_index <- which(plant_group %in% keep_plant_groups)
 
 
 # Plotting those with minimum size as specified:
-superheat(plot_pred[keep_bird_index, keep_plant_index],
+superheat(X = plot_pred[keep_bird_index, keep_plant_index],
           membership.rows = bird_group[keep_bird_index],
           membership.cols = plant_group[keep_plant_index],
           grid.hline.col = "#00257D", grid.vline.col = '#00257D',
@@ -158,8 +160,8 @@ superheat(plot_pred[keep_bird_index, keep_plant_index],
           left.label.text.size = 3,
           bottom.label.text.size = 3,
           bottom.label.size = 0.2, left.label.size = 0.12,
-          legend.breaks = seq(0, 1, by = 0.2),
-          legend.vspace = 0.05,
+          #legend.breaks = seq(0, 1, by = 0.2),
+          #legend.vspace = 0.05,
           heat.col.scheme = "grey", heat.na.col = 'black',
           heat.pal.values = seq(0, 1, by = 0.05))
 

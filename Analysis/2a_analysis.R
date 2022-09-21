@@ -1,7 +1,7 @@
 # Analyzing the birds and plants data using the proposed method.
 
 # The directory where the analysis is performed:
-wd_path <- 'Bird_Plant_Interactions/'
+wd_path <- '/home/jennifer/Bird_Plant_Interactions/'
 # Where the processed data are saved:
 data_path <- 'Data/'
 # Where you want to save MCMC results:
@@ -26,6 +26,7 @@ source(paste0(source_path, 'PredictInteractions_function.R'))
 source(paste0(source_path, 'GetPredLatFac_function.R'))
 source(paste0(source_path, 'GetPredWeights_function.R'))
 
+library(doParallel)
 
 # --------------------------------------------------------------- #
 
@@ -62,9 +63,9 @@ nStudies <- dim(obs_A)[3]
 
 bias_cor <- TRUE  # Performing bias correction.
 
-Nsims <- 1000
-burn <- 40000
-thin <- 40
+Nsims <- 1000 # original 1000
+burn <- 500 # original 40000
+thin <- 2 # original 40
 use_H <- 10
 theta_inf <- 0.01
 mh_n_pis <- 70  # Parameter for proposal in Metropolis-Hastings for pi update.
@@ -88,7 +89,10 @@ sampling <- NULL
 
 # We run 4 chains. We suggest that you run the following code in parallel instead.
 
-for (cc in 1 : 4) {  # Chain index:
+#registerDoParallel(2)
+#foreach(cc=1:2) %dopar% {
+
+for (cc in 1 : 2) {  # Chain index:
   
   set.seed(cc)
   
@@ -119,7 +123,7 @@ for (cc in 1 : 4) {  # Chain index:
   
   # Combining the results we are interested in to a list and saving:
   res <- list(all_pred = all_pred, correlations = correlations)
-  save(res, file = paste0(save_path, 'res_', cc, '.dat'))
+  save(res, file = paste0(save_path, 'res_2_', cc, '.dat'))
   
   rm(res)
   detach(mcmc)

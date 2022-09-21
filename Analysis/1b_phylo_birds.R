@@ -3,7 +3,7 @@
 # Set the directories below to correspond to paths on your machine:
 
 # The directory where the analysis is performed:
-wd_path <- 'Bird_Plant_Interactions/'
+wd_path <- '/home/jennifer/Bird_Plant_Interactions/'
 # The directory where the original data are:
 data_path <- 'Data/'
 # The directory where the downloaded bird phylogeny data are.
@@ -25,6 +25,7 @@ setwd(wd_path)
 
 # Loading libraries.
 library(ape)
+library(data.table) # JK added this
 
 
 # --------------------
@@ -34,8 +35,8 @@ library(ape)
 x <- read.tree(paste0(phylo_path, 'AllBirdsEricson1.tre'))
 # There are 1000 phylogenetic trees. Getting the name of the species included
 # in those trees:
-x_names <- sapply(x, function(y) y$tip.label)
-table(apply(x_names, 1, function(y) length(unique(y))))
+x_names <- sapply(x, function(y) y$tip.label) # each column is a tree, bird names in rows
+table(apply(x_names, 1, function(y) length(unique(y)))) # how many different bird names at each leaf (across trees)
 length(unique(as.character(x_names)))
 # From these results we see that the 1000 phylogenetic trees do not have the
 # species in the same order, even though they include the same species overall.

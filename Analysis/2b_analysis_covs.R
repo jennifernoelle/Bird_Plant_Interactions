@@ -1,7 +1,7 @@
 # Analyzing the birds and plants data with a model that uses the covariates.
 
 # The directory where the analysis is performed:
-wd_path <- 'Bird_Plant_Interactions/'
+wd_path <- '/home/jennifer/Bird_Plant_Interactions/'
 # Where the processed data are saved:
 data_path <- 'Data/'
 # Where you want to save MCMC results:
@@ -49,8 +49,8 @@ nP <- nrow(obs_A)
 bias_cor <- TRUE
 
 Nsims <- 1000
-burn <- 40000
-thin <- 40
+burn <- 4000 # was 40000
+thin <- 10
 mh_n_pis <- 70  # Parameter for proposal in Metropolis-Hastings for pi update.
 mh_n_pjs <- 70
 

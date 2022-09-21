@@ -3,7 +3,7 @@
 # Set the directories below to correspond to paths on your machine:
 
 # The directory where the analysis is performed:
-wd_path <- 'Bird_Plant_Interactions/'
+wd_path <- '/home/jennifer/Bird_Plant_Interactions/'
 # The directory within the working directory where the data are:
 data_path <- 'Data/'
 
